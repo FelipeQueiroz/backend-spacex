@@ -6,6 +6,6 @@
   "database": "spacex",
   "useUnifiedTopology": true,
   "entities": [
-      "./src/modules/schemas/*.ts"
+      "./src/modules/**/schemas/*.ts"
   ]
 }
