@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
-import usersRouter from '../modules/users/routes/users.routes';
-import newsRouter from '../modules/news/routes/news.routes';
+import usersRouter from '../modules/users/http/routes/users.routes';
+import postsRouter from '../modules/posts/http/routes/posts.routes';
 
 const routes = Router();
 
 routes.use('/users', usersRouter);
-routes.use('/news', newsRouter);
+routes.use('/posts', postsRouter);
 
 export default routes;

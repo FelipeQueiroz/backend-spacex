@@ -1,4 +1,6 @@
+import AppError from '../../../errors/AppError';
 import UsersRepository from '../repositories/UsersRepository';
+import User from '../schemas/User';
 
 interface IRequest {
   id: string;
@@ -6,30 +8,40 @@ interface IRequest {
   email: string;
   avatar: string;
   role: string;
-  password: string;
 }
 
-class EditUserService {
+class UpdateUserService {
   public async execute({
     id,
     name,
     email,
     avatar,
     role,
-    password,
-  }: IRequest): Promise<void> {
-    // FIX: update ta mechendo em todos campos
+  }: IRequest): Promise<User> {
     const usersRepository = new UsersRepository();
 
-    await usersRepository.editUser({
+    const user = await usersRepository.findById(id);
+
+    if (!user) {
+      throw new AppError('User not found.');
+    }
+
+    const userWithUpdatedEmail = await usersRepository.findByEmail(email);
+
+    if (userWithUpdatedEmail && userWithUpdatedEmail.id.toString() !== id) {
+      throw new AppError('E-mail already in use.');
+    }
+
+    const userUpdated = await usersRepository.editUser({
       id,
       name,
       email,
       avatar,
       role,
-      password,
     });
+
+    return userUpdated;
   }
 }
 
-export default EditUserService;
+export default UpdateUserService;

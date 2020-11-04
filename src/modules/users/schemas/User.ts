@@ -5,9 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ObjectIdColumn,
-  OneToMany,
 } from 'typeorm';
-import Post from '../../news/schemas/Post';
 
 @Entity('users')
 class User {
@@ -25,12 +23,6 @@ class User {
 
   @Column()
   avatar: string;
-
-  @Column()
-  password: string;
-
-  @OneToMany(_type => Post, post => post.owner)
-  posts: Post[];
 
   @CreateDateColumn()
   created_at: string;

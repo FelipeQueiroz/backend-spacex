@@ -1,5 +1,4 @@
 import { getMongoRepository, MongoRepository } from 'typeorm';
-import { ObjectID } from 'mongodb';
 import AppError from '../../../errors/AppError';
 
 import User from '../schemas/User';
@@ -24,14 +23,12 @@ class UsersRepository {
     email,
     avatar,
     role,
-    password,
   }: ICreateUserDTO): Promise<User> {
     const user = this.ormRepository.create({
       name,
       email,
       avatar,
       role,
-      password,
     });
 
     await this.ormRepository.save(user);
@@ -45,21 +42,21 @@ class UsersRepository {
     email,
     avatar,
     role,
-    password,
-  }: IEditUserDTO): Promise<void> {
+  }: IEditUserDTO): Promise<User> {
     const user = await this.ormRepository.findOne(id);
 
     if (!user) {
       throw new AppError('User does not exist');
     }
 
-    await this.ormRepository.updateOne(
-      { _id: new ObjectID(id) },
-      {
-        $set: { name, email, avatar, role, password },
-      },
-      { upsert: true },
-    );
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.avatar = avatar || user.avatar;
+    user.role = role || user.role;
+
+    await this.ormRepository.save(user);
+
+    return user;
   }
 
   public async deleteUser(id: string): Promise<void> {
@@ -70,6 +67,20 @@ class UsersRepository {
     }
 
     await this.ormRepository.remove(user);
+  }
+
+  public async findByEmail(email: string): Promise<User | undefined> {
+    const user = await this.ormRepository.findOne({
+      where: { email },
+    });
+
+    return user;
+  }
+
+  public async findById(id: string): Promise<User | undefined> {
+    const user = await this.ormRepository.findOne(id);
+
+    return user;
   }
 }
 
