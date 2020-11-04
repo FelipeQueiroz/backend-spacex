@@ -1,12 +1,12 @@
 import AppError from '../../../errors/AppError';
-import NewsRepository from '../repositories/NewsRepository';
+import PostsRepository from '../repositories/PostsRepository';
 import Post from '../schemas/Post';
 
 class ListPostService {
   public async execute(id: string): Promise<Post | undefined> {
-    const newsRepository = new NewsRepository();
+    const postsRepository = new PostsRepository();
 
-    const post = newsRepository.findById(id);
+    const post = postsRepository.findById(id);
 
     if (!post) {
       throw new AppError('Post does not exists.');

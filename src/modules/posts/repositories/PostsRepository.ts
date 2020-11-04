@@ -2,24 +2,32 @@ import { getMongoRepository, MongoRepository } from 'typeorm';
 import AppError from '../../../errors/AppError';
 
 import Post from '../schemas/Post';
+import User from '../../users/schemas/User';
 import ICreatePostDTO from '../dtos/ICreatePostDTO';
 import IEditPostDTO from '../dtos/IEditPostDTO';
 
-class NewsRepository {
+class PostsRepository {
   private ormRepository: MongoRepository<Post>;
+
+  private userRepository: MongoRepository<User>;
 
   constructor() {
     this.ormRepository = getMongoRepository(Post, 'default');
+    this.userRepository = getMongoRepository(User, 'default');
   }
 
   public async findAll(): Promise<Post[]> {
-    const posts = await this.ormRepository.find();
+    const posts = await this.ormRepository.find({
+      relations: ['owner'],
+    });
 
     return posts;
   }
 
   public async findById(id: string): Promise<Post | undefined> {
-    const post = await this.ormRepository.findOne(id);
+    const post = await this.ormRepository.findOne(id, {
+      relations: ['owner'],
+    });
 
     return post;
   }
@@ -64,4 +72,4 @@ class NewsRepository {
   }
 }
 
-export default NewsRepository;
+export default PostsRepository;

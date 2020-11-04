@@ -21,12 +21,14 @@ class Post {
   @Column()
   body: string;
 
-  @Column()
-  owner_id: string;
-
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, user => user.posts, {
+    eager: true,
+  })
   @JoinColumn({ name: 'owner_id' })
   owner: User;
+
+  @Column()
+  owner_id: string;
 
   @CreateDateColumn()
   created_at: Date;

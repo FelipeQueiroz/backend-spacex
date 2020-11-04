@@ -1,4 +1,4 @@
-import NewsRepository from '../repositories/NewsRepository';
+import PostsRepository from '../repositories/PostsRepository';
 import Post from '../schemas/Post';
 
 interface IRequest {
@@ -10,9 +10,9 @@ interface IRequest {
 class UpdatePostService {
   public async execute({ id, title, body }: IRequest): Promise<Post> {
     // FIX: update ta mechendo em todos campos
-    const newsRepository = new NewsRepository();
+    const postsRepository = new PostsRepository();
 
-    const post = await newsRepository.editPost({
+    const post = await postsRepository.editPost({
       id,
       title,
       body,

@@ -1,4 +1,4 @@
-import NewsRepository from '../repositories/NewsRepository';
+import PostsRepository from '../repositories/PostsRepository';
 import Post from '../schemas/Post';
 
 interface IRequest {
@@ -9,9 +9,9 @@ interface IRequest {
 
 class CreatePostService {
   public async execute({ title, body, owner_id }: IRequest): Promise<Post> {
-    const newsRepository = new NewsRepository();
+    const postsRepository = new PostsRepository();
 
-    const post = await newsRepository.createPost({ title, body, owner_id });
+    const post = await postsRepository.createPost({ title, body, owner_id });
 
     return post;
   }

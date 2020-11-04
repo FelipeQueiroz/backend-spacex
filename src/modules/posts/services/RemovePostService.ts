@@ -1,4 +1,4 @@
-import NewsRepository from '../repositories/NewsRepository';
+import PostsRepository from '../repositories/PostsRepository';
 
 interface IRequest {
   id: string;
@@ -6,9 +6,9 @@ interface IRequest {
 
 class RemovePostService {
   public async execute({ id }: IRequest): Promise<void> {
-    const newsRepository = new NewsRepository();
+    const postsRepository = new PostsRepository();
 
-    await newsRepository.deletePost(id);
+    await postsRepository.deletePost(id);
   }
 }
 

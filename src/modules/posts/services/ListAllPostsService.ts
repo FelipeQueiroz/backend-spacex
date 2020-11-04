@@ -1,10 +1,10 @@
-import NewsRepository from '../repositories/NewsRepository';
+import PostsRepository from '../repositories/PostsRepository';
 import Post from '../schemas/Post';
 
 class ListAllPostsService {
   public async execute(): Promise<Post[]> {
-    const newsRepository = new NewsRepository();
-    return newsRepository.findAll();
+    const postsRepository = new PostsRepository();
+    return postsRepository.findAll();
   }
 }
 

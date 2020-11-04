@@ -5,7 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ObjectIdColumn,
+  OneToMany,
 } from 'typeorm';
+
+import Post from '../../posts/schemas/Post';
 
 @Entity('users')
 class User {
@@ -23,6 +26,9 @@ class User {
 
   @Column()
   avatar: string;
+
+  @OneToMany(() => Post, post => post.owner)
+  posts: Post[];
 
   @CreateDateColumn()
   created_at: string;
