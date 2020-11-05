@@ -1,4 +1,4 @@
-import AppError from '../../../errors/AppError';
+import AppError from '../../../shared/errors/AppError';
 import UsersRepository from '../repositories/UsersRepository';
 import User from '../schemas/User';
 
@@ -12,7 +12,6 @@ interface IRequest {
 class CreateUserService {
   public async execute({ name, email, avatar, role }: IRequest): Promise<User> {
     const usersRepository = new UsersRepository();
-
     const checkUserExists = await usersRepository.findByEmail(email);
 
     if (checkUserExists) {

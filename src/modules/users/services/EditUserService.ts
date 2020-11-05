@@ -1,4 +1,4 @@
-import AppError from '../../../errors/AppError';
+import AppError from '../../../shared/errors/AppError';
 import UsersRepository from '../repositories/UsersRepository';
 import User from '../schemas/User';
 

@@ -1,5 +1,5 @@
 import { getMongoRepository, MongoRepository } from 'typeorm';
-import AppError from '../../../errors/AppError';
+import AppError from '../../../shared/errors/AppError';
 
 import Post from '../schemas/Post';
 import User from '../../users/schemas/User';
@@ -29,6 +29,10 @@ class PostsRepository {
       relations: ['owner'],
     });
 
+    if (!post) {
+      throw new AppError('This post does not exists');
+    }
+
     return post;
   }
 
@@ -37,10 +41,17 @@ class PostsRepository {
     body,
     owner_id,
   }: ICreatePostDTO): Promise<Post> {
+    const owner = await this.userRepository.findOne(owner_id);
+
+    if (!owner) {
+      throw new AppError('User does not exists');
+    }
+
     const post = this.ormRepository.create({
       title,
       body,
       owner_id,
+      owner,
     });
 
     await this.ormRepository.save(post);
@@ -57,6 +68,8 @@ class PostsRepository {
 
     post.title = title || post.title;
     post.body = body || post.body;
+
+    await this.ormRepository.save(post);
 
     return post;
   }

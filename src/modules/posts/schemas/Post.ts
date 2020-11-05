@@ -5,12 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ObjectIdColumn,
-  ManyToOne,
-  JoinColumn,
 } from 'typeorm';
 import User from '../../users/schemas/User';
 
-@Entity('news')
+@Entity('posts')
 class Post {
   @ObjectIdColumn()
   id: ObjectID;
@@ -21,10 +19,7 @@ class Post {
   @Column()
   body: string;
 
-  @ManyToOne(() => User, user => user.posts, {
-    eager: true,
-  })
-  @JoinColumn({ name: 'owner_id' })
+  @Column(() => User)
   owner: User;
 
   @Column()

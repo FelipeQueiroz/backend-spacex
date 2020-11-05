@@ -9,7 +9,6 @@ interface IRequest {
 
 class UpdatePostService {
   public async execute({ id, title, body }: IRequest): Promise<Post> {
-    // FIX: update ta mechendo em todos campos
     const postsRepository = new PostsRepository();
 
     const post = await postsRepository.editPost({

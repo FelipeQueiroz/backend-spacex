@@ -5,9 +5,9 @@ import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
 
-import createConnection from './database';
-import AppError from './errors/AppError';
-import routes from './routes';
+import createConnection from './shared/database';
+import AppError from './shared/errors/AppError';
+import routes from './shared/routes';
 
 const app = express();
 

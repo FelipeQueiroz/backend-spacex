@@ -1,5 +1,5 @@
 import { getMongoRepository, MongoRepository } from 'typeorm';
-import AppError from '../../../errors/AppError';
+import AppError from '../../../shared/errors/AppError';
 
 import User from '../schemas/User';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
@@ -79,6 +79,9 @@ class UsersRepository {
 
   public async findById(id: string): Promise<User | undefined> {
     const user = await this.ormRepository.findOne(id);
+    if (!user) {
+      throw new AppError('User not found');
+    }
 
     return user;
   }
