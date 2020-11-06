@@ -18,6 +18,7 @@ O backend da aplicação foi totalmente feito em TypeScript, deixei o mais auto-
 # Bibliotecas utilizadas:
 
 - **`express`**: Para configuração de rotas.
+- **`cors`**: Para autenticação de rotas.
 - **`typeorm`**: Para conexão e configuração com banco de dados.
 - **`mongodb`**: Para conexão e configuração com banco de dados.
 - **`eslint`**: Para reforçar o code style.
