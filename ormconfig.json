@@ -1,9 +1,11 @@
 {
   "name": "default",
   "type": "mongodb",
-  "host": "localhost",
-  "port": 27017,
-  "database": "spacex",
+  "url": "mongodb://spacex:spacexpw@cluster0-shard-00-00.1oq3e.mongodb.net:27017,cluster0-shard-00-01.1oq3e.mongodb.net:27017,cluster0-shard-00-02.1oq3e.mongodb.net:27017/spacexdb?ssl=true&replicaSet=atlas-uxo9bx-shard-0&authSource=admin&retryWrites=true&w=majority",
+  "debug": true,
+  "useNewUrlParser": true,
+  "synchronize": true,
+  "logging": true,
   "useUnifiedTopology": true,
   "entities": [
       "./src/modules/**/schemas/*.ts"
