@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ObjectIdColumn,
+  ManyToOne,
 } from 'typeorm';
 import User from '../../users/schemas/User';
 
@@ -19,7 +20,8 @@ class Post {
   @Column()
   body: string;
 
-  @Column(() => User)
+  @ManyToOne(() => User)
+  @Column()
   owner: User;
 
   @Column()
